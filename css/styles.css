@@ -14,18 +14,21 @@ body {
     display: flex;
     min-height: 100vh;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
     color: white;
     position: relative;
+    gap: 20px;
 }
 
 /* Estiliza o canvas */
 canvas {
+    border: 20px solid #333;
+    border-radius: 3vh;
     background-color: #111;
-    width: 100%;
+    width: 80%;
     max-width: 600px;
     height: auto;
+    position: relative;
+    margin-left: 9%;
 }
 
 /* Estiliza a seção de pontuação */
@@ -34,6 +37,7 @@ canvas {
     flex-direction: column;
     align-items: center;
     font-size: 1.8rem;
+    margin: 10vh ;
 }
 
 /* Estiliza o valor da pontuação */
@@ -47,10 +51,12 @@ canvas {
 /* Estiliza a tela de menu */
 .menu-screen {
     position: absolute;
-    display: none;
-    flex-direction: column;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
     z-index: 1;
+    margin-left: 40%;
 }
 
 /* Estiliza o título do menu */
@@ -91,7 +97,7 @@ canvas {
     padding: 20px;
     border-radius: 10px;
     max-width: 300px;
-    margin-top: 10vh;
+    margin-top: 5vh;
 }
 
 /* Estiliza o título e parágrafos do tutorial */
