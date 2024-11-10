@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
+/* Configurações gerais */
 * {
     margin: 0;
     padding: 0;
@@ -7,6 +8,7 @@
     font-family: "Poppins", sans-serif;
 }
 
+/* Estiliza o corpo da página */
 body {
     background-color: #191919;
     display: flex;
@@ -18,10 +20,15 @@ body {
     position: relative;
 }
 
+/* Estiliza o canvas */
 canvas {
     background-color: #111;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
 }
 
+/* Estiliza a seção de pontuação */
 .score {
     display: flex;
     flex-direction: column;
@@ -29,6 +36,7 @@ canvas {
     font-size: 1.8rem;
 }
 
+/* Estiliza o valor da pontuação */
 .score--value {
     font-weight: 700;
     font-size: 4.5rem;
@@ -36,6 +44,7 @@ canvas {
     margin-top: -10px;
 }
 
+/* Estiliza a tela de menu */
 .menu-screen {
     position: absolute;
     display: none;
@@ -44,17 +53,20 @@ canvas {
     z-index: 1;
 }
 
+/* Estiliza o título do menu */
 .game-over {
     text-transform: uppercase;
     font-weight: 700;
     font-size: 3rem;
 }
 
+/* Estiliza a pontuação final */
 .final-score {
     font-weight: 500;
     font-size: 1.5rem;
 }
 
+/* Estiliza o botão de jogar */
 .btn-play {
     border: none;
     border-radius: 100px;
@@ -72,26 +84,63 @@ canvas {
 
 /* Estiliza a seção de tutorial */
 .tutorial {
-    position: absolute;
+    position: fixed;
     right: 20px;
     top: 20px;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 10px;
     max-width: 300px;
+    margin-top: 10vh;
 }
 
+/* Estiliza o título e parágrafos do tutorial */
 .tutorial h2 {
     font-size: 1.5rem;
     margin-bottom: 10px;
 }
 
+/* Estiliza a lista do tutorial */
 .tutorial p, .tutorial ul {
     font-size: 1rem;
     margin-bottom: 10px;
 }
 
+/* Estiliza os itens da lista do tutorial */
 .tutorial ul {
     list-style-type: disc;
     padding-left: 20px;
+}
+
+/* Media queries para responsividade */
+@media (max-width: 1024px) {
+    .tutorial {
+        position: static;
+        margin-top: 20px;
+        max-width: 90%;
+    }
+
+    canvas {
+        max-width: 90%;
+    }
+
+    .score {
+        font-size: 1.5rem;
+    }
+
+    .score--value {
+        font-size: 3.5rem;
+    }
+
+    .game-over {
+        font-size: 2.5rem;
+    }
+
+    .final-score {
+        font-size: 1.2rem;
+    }
+
+    .btn-play {
+        font-size: 0.9rem;
+    }
 }
