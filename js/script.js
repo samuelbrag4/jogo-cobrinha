@@ -44,12 +44,9 @@ const randomPosition = () => {
     return Math.floor(Math.random() * (canvasSize / size)) * size;
 }
 
-// Função para gerar uma cor aleatória para a comida
+// Função para gerar uma cor amarela para a comida
 const randomColor = () => {
-    const red = randomNumber(0, 255);
-    const green = randomNumber(0, 255);
-    const blue = randomNumber(0, 255);
-    return `rgb(${red}, ${green}, ${blue})`;
+    return "yellow";
 }
 
 // Objeto que representa a comida
@@ -62,13 +59,16 @@ const food = {
 let direction;
 let loopId;
 
-// Função para desenhar a comida no canvas
+// Função para desenhar a comida no canvas com sombra branca brilhante
 const drawFood = () => {
     const { x, y, color } = food;
     ctx.fillStyle = color;
+    ctx.shadowColor = "white";
+    ctx.shadowBlur = 20;
     ctx.beginPath();
     ctx.arc(x + radius, y + radius, radius, 0, 2 * Math.PI);
     ctx.fill();
+    ctx.shadowBlur = 0; // Reseta a sombra para não afetar outros desenhos
 }
 
 // Função para desenhar a cobra no canvas
