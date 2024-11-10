@@ -64,7 +64,7 @@ const drawFood = () => {
     const { x, y, color } = food;
     ctx.fillStyle = color;
     ctx.shadowColor = "white";
-    ctx.shadowBlur = 20;
+    ctx.shadowBlur = 10;
     ctx.beginPath();
     ctx.arc(x + radius, y + radius, radius, 0, 2 * Math.PI);
     ctx.fill();
