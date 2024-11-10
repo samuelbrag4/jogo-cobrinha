@@ -1,18 +1,22 @@
+// Seleciona o elemento canvas e obtém o contexto 2D
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
+// Seleciona elementos de pontuação e menu
 const score = document.querySelector(".score--value");
 const finalScore = document.querySelector(".final-score > span");
 const menu = document.querySelector(".menu-screen");
 const buttonPlay = document.querySelector(".btn-play");
 
+// Carrega o áudio do jogo
 const audio = new Audio("../assets/audio.mp3");
 
+// Define o tamanho da cobra e do canvas
 const size = 30;
 const radius = size / 2;
 const canvasSize = 600;
 
-// CObra
+// Define a posição inicial da cobra
 let snake = [ 
     { x: 270, y: 240 }, 
     { x: 300, y: 240 }, 
@@ -22,23 +26,25 @@ let snake = [
     { x: 420, y: 240 } 
 ];
 
-// Posição inicial
+// Posição inicial da cobra
 const initialPosition = { x: 270, y: 240 };
 
-// Aumento do score quando come
+// Função para incrementar a pontuação quando a cobra come
 const incrementScore = () => {
     score.innerText = +score.innerText + 10;
 }
 
+// Função para gerar um número aleatório entre min e max
 const randomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// Função para gerar uma posição aleatória no canvas
 const randomPosition = () => {
     return Math.floor(Math.random() * (canvasSize / size)) * size;
 }
 
-// Cor aleatória da comida
+// Função para gerar uma cor aleatória para a comida
 const randomColor = () => {
     const red = randomNumber(0, 255);
     const green = randomNumber(0, 255);
@@ -46,7 +52,7 @@ const randomColor = () => {
     return `rgb(${red}, ${green}, ${blue})`;
 }
 
-// Comida
+// Objeto que representa a comida
 const food = {
     x: randomPosition(),
     y: randomPosition(),
@@ -56,7 +62,7 @@ const food = {
 let direction;
 let loopId;
 
-// Desenho da comida
+// Função para desenhar a comida no canvas
 const drawFood = () => {
     const { x, y, color } = food;
     ctx.fillStyle = color;
@@ -65,7 +71,7 @@ const drawFood = () => {
     ctx.fill();
 }
 
-// Desenho da cobra
+// Função para desenhar a cobra no canvas
 const drawSnake = () => {
     snake.forEach((position, index) => {
         ctx.fillStyle = index === snake.length - 1 ? "lime" : "limeGreen";
@@ -75,6 +81,7 @@ const drawSnake = () => {
     });
 }
 
+// Função para mover a cobra
 const moveSnake = () => {
     if (!direction) return;
 
@@ -94,6 +101,7 @@ const moveSnake = () => {
     snake.shift();
 }
 
+// Função para desenhar a grade no canvas
 const drawGrid = () => {
     ctx.lineWidth = 1;
     ctx.strokeStyle = "#191919";
@@ -110,12 +118,17 @@ const drawGrid = () => {
     }
 }
 
+// Função para verificar se a cobra comeu a comida
 const checkEat = () => {
     const head = snake[snake.length - 1];
 
     if (head.x === food.x && head.y === food.y) {
         incrementScore();
         audio.play();
+
+        // Adiciona um novo segmento à cobra
+        const newSegment = { ...snake[0] };
+        snake.unshift(newSegment);
 
         let newFoodPosition;
         do {
@@ -131,6 +144,7 @@ const checkEat = () => {
     }
 }
 
+// Função para verificar colisões
 const checkCollision = () => {
     const head = snake[snake.length - 1];
     const wallCollision =
@@ -143,6 +157,7 @@ const checkCollision = () => {
     }
 }
 
+// Função para finalizar o jogo
 const gameOver = () => {
     direction = undefined;
     menu.style.display = "flex";
@@ -150,6 +165,7 @@ const gameOver = () => {
     canvas.style.filter = "blur(2px)";
 }
 
+// Função principal do jogo que é executada em loop
 const gameLoop = () => {
     ctx.clearRect(0, 0, canvasSize, canvasSize);
     drawGrid();
@@ -162,8 +178,10 @@ const gameLoop = () => {
     loopId = setTimeout(gameLoop, 150);
 }
 
+// Inicia o loop do jogo
 gameLoop();
 
+// Evento de teclado para mudar a direção da cobra
 document.addEventListener("keydown", ({ key }) => {
     if (key === "ArrowRight" && direction !== "left") {
         direction = "right";
@@ -176,12 +194,15 @@ document.addEventListener("keydown", ({ key }) => {
     }
 });
 
+// Evento de clique no botão de jogar novamente
 buttonPlay.addEventListener("click", () => {
+    // Reinicia a pontuação
     score.innerText = "00";
+    // Esconde o menu e remove o filtro do canvas
     menu.style.display = "none";
     canvas.style.filter = "none";
 
-
+    // Reinicia a posição da cobra
     snake = [
         { x: 270, y: 240 },
         { x: 300, y: 240 },
@@ -190,5 +211,6 @@ buttonPlay.addEventListener("click", () => {
         { x: 390, y: 240 },
         { x: 420, y: 240 }
     ];
+    // Reseta a direção
     direction = undefined;
 });
